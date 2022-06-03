@@ -22,6 +22,8 @@ const Chat: FC = () => {
     });
 
     dispatch(actions.set({ buffer: '' }));
+
+    window.scroll(0, window.document.body.clientHeight);
   }, [buffer, user, dispatch, setMessage]);
 
   useEffect(() => {

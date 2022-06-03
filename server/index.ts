@@ -1,5 +1,13 @@
 import http, { RequestListener } from 'http';
 
+export type Message = {
+  body: string;
+  created: string;
+  creator: string;
+};
+
+const messages: Message[] = [];
+
 async function getResult(url: string, body: any): Promise<Object> {
   if (url.indexOf('/tasks') === 0) {
     return [
@@ -8,6 +16,12 @@ async function getResult(url: string, body: any): Promise<Object> {
       { description: 'Display data', done: false },
       { description: 'Delete data', done: false }
     ];
+  }
+
+  if (url.indexOf('/chat') === 0) {
+    if (body) messages.push(body);
+
+    return messages;
   }
 
   return null;

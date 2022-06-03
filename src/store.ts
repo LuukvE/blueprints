@@ -4,7 +4,10 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State } from './types';
 
 const initialState: State = {
-  tasks: []
+  tasks: [],
+  chat: [],
+  user: `user-${Math.random()}`,
+  buffer: ''
 };
 
 export const { actions, reducer } = createSlice({

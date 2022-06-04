@@ -1,4 +1,5 @@
 import http, { RequestListener } from 'http';
+import { WebSocketServer, OPEN } from 'ws';
 
 type Person = {
   id: string;
@@ -17,35 +18,6 @@ const database: {
     description: 'Web Developer'
   }
 };
-
-async function getResult(url: string, body: any): Promise<Object> {
-  if (url.indexOf('/tasks') === 0) {
-    return [
-      { description: 'Authenticate', done: false },
-      { description: 'Load data', done: false },
-      { description: 'Display data', done: false },
-      { description: 'Delete data', done: false }
-    ];
-  }
-
-  if (url.indexOf('/people') === 0) {
-    if (!body) return database;
-
-    await new Promise((resolve) => {
-      setTimeout(resolve, 200);
-    });
-
-    if (!body.id) body.id = `${Math.random()}`;
-
-    database[body.id] = body;
-
-    if (body.status === 'deleted') delete database[body.id];
-
-    return database;
-  }
-
-  return null;
-}
 
 const httpHandler: RequestListener = async function httpHandler(request, response) {
   let chunks = '';
@@ -89,6 +61,48 @@ const httpHandler: RequestListener = async function httpHandler(request, respons
   });
 };
 
-http.createServer(httpHandler).listen(8080);
+const server = http.createServer(httpHandler).listen(8080);
+
+const wss = new WebSocketServer({ server });
 
 console.log('Server running on http://localhost:8080');
+
+async function getResult(url: string, body: any): Promise<Object> {
+  if (url.indexOf('/tasks') === 0) {
+    return [
+      { description: 'Authenticate', done: false },
+      { description: 'Load data', done: false },
+      { description: 'Display data', done: false },
+      { description: 'Delete data', done: false }
+    ];
+  }
+
+  if (url.indexOf('/people') === 0) return database;
+
+  if (url.indexOf('/person') === 0) {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 200);
+    });
+
+    if (!body) return;
+
+    if (!body.id) body.id = `${Math.random()}`;
+
+    database[body.id] = {
+      ...database[body.id],
+      ...body
+    };
+
+    const message = JSON.stringify(database[body.id]);
+
+    wss.clients.forEach((client) => {
+      if (client.readyState === OPEN) client.send(message);
+    });
+
+    if (body.status === 'deleted') delete database[body.id];
+
+    return { success: true };
+  }
+
+  return null;
+}

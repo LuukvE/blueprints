@@ -1,11 +1,33 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { Person, Task } from '../types';
 import { useDispatch, actions } from '../store';
 
+const wsURL = `${process.env.REACT_APP_API_URL}`
+  .split('/')
+  .map((part, index) => {
+    if (index !== 0) return part;
+    return part === 'https:' ? 'wss:' : 'ws:';
+  })
+  .join('/');
+
 const useAPI = () => {
   const dispatch = useDispatch();
   const abort = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    const ws = new WebSocket(wsURL);
+
+    ws.addEventListener('message', (message) => {
+      const person = JSON.parse(message.data);
+
+      dispatch(actions.setPerson(person));
+    });
+
+    return () => {
+      ws.close();
+    };
+  }, [dispatch]);
 
   const getTasks = useCallback(async (): Promise<Task[]> => {
     try {
@@ -29,38 +51,48 @@ const useAPI = () => {
     return [];
   }, []);
 
-  const setPerson = useCallback(
-    async (person?: Partial<Person>): Promise<void> => {
-      try {
-        if (abort.current) abort.current.abort();
+  const getPeople = useCallback(async (): Promise<void> => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/people`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include'
+      });
 
-        abort.current = new AbortController();
+      if (response.status !== 200) return console.log(`API request failed`);
 
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/people`, {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'include',
-          signal: abort.current.signal,
-          body: person ? JSON.stringify(person) : null
-        });
+      dispatch(actions.set({ people: await response.json() }));
+    } catch (e) {
+      console.log(`API request failed`, e);
+    }
+  }, [dispatch]);
 
-        if (response.status !== 200) {
-          console.log(`API request failed`);
+  const updatePerson = useCallback(async (person?: Partial<Person>): Promise<void> => {
+    try {
+      if (abort.current) abort.current.abort();
 
-          return;
-        }
+      abort.current = new AbortController();
 
-        dispatch(actions.set({ people: await response.json() }));
-      } catch (e) {
-        console.log(`API request failed`, e);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/person`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        signal: abort.current.signal,
+        body: person ? JSON.stringify(person) : null
+      });
+
+      if (response.status !== 200) {
+        console.log(`API request failed`);
+
+        return;
       }
-    },
-    [dispatch]
-  );
+    } catch (e) {}
+  }, []);
 
   return {
     getTasks,
-    setPerson
+    getPeople,
+    updatePerson
   };
 };
 

@@ -16,6 +16,23 @@ export const { actions, reducer } = createSlice({
     setPerson: (state, action: PayloadAction<Partial<Person>>) => {
       if (!action.payload.id) return;
 
+      const prev = state.people[action.payload.id];
+
+      if (prev?.focus === 'name') delete action.payload.name;
+
+      if (prev?.focus === 'description') delete action.payload.description;
+
+      state.people = {
+        ...state.people,
+        [action.payload.id]: {
+          ...prev,
+          ...action.payload
+        }
+      };
+    },
+    setPersonForce: (state, action: PayloadAction<Partial<Person>>) => {
+      if (!action.payload.id) return;
+
       state.people = {
         ...state.people,
         [action.payload.id]: {

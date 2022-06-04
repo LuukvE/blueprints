@@ -8,6 +8,7 @@ export type Person = {
   name: string;
   status: string;
   description: string;
+  focus?: string;
 };
 
 export type State = {

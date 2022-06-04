@@ -1,28 +1,12 @@
-import React, { FC, ChangeEvent, useEffect } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 
 import { useSelector, actions, useDispatch } from '../store';
-import useQuery from '../hooks/useQuery';
-import useAPI from '../hooks/useAPI';
 
 import './Welcome.scss';
 
 const Welcome: FC = () => {
-  const { getTasks } = useAPI();
   const dispatch = useDispatch();
-  const { query, setQuery } = useQuery();
   const tasks = useSelector((state) => state.tasks);
-
-  useEffect(() => {
-    if (!query.completed) return;
-
-    console.log(`You have completed task #${query.completed}`);
-  }, [query]);
-
-  useEffect(() => {
-    if (tasks.length) return;
-
-    getTasks();
-  }, [getTasks, dispatch, tasks]);
 
   return (
     <main className="Welcome">
@@ -43,8 +27,6 @@ const Welcome: FC = () => {
                 };
 
                 dispatch(actions.set({ tasks: update }));
-
-                if (update[index].done) setQuery({ completed: `${index + 1}` });
               }}
             />
 

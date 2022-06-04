@@ -18,7 +18,9 @@ ReactDOM.render(
   <Router history={history}>
     <Provider store={store}>
       <nav>
-        <NavLink to="/">Welcome</NavLink>
+        <NavLink exact to="/">
+          Welcome
+        </NavLink>
         <NavLink to="/chat">Chat</NavLink>
       </nav>
       <Switch>

@@ -23,7 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "npx ts-node server"
+    "server": "npx ts-node server",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [

@@ -1,5 +1,58 @@
 @import '../variables';
 
 .Crud {
+  width: 100%;
   padding: 3rem;
+
+  table {
+    width: 100%;
+
+    th {
+      text-align: left;
+      color: #ccc;
+      line-height: 2rem;
+    }
+
+    input {
+      width: 100%;
+      border: 0;
+      height: 2rem;
+      line-height: 2rem;
+      padding: 0 0.5rem;
+      outline: 0;
+      opacity: 0.95;
+      color: white;
+      background: darken($dark, 5);
+
+      &:focus,
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      height: 2rem;
+      width: 120px;
+      background: $red;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($red, 5);
+      }
+    }
+
+    td[colspan='2'] button {
+      width: 100%;
+      background: $green;
+      color: white;
+      cursor: pointer;
+
+      &:hover {
+        background: darken($green, 5);
+      }
+    }
+  }
 }

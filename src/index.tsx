@@ -17,7 +17,9 @@ ReactDOM.render(
   <Router history={history}>
     <Provider store={store}>
       <nav>
-        <NavLink to="/">Welcome</NavLink>
+        <NavLink exact to="/">
+          Welcome
+        </NavLink>
       </nav>
       <Switch>
         <Route exact path="/">

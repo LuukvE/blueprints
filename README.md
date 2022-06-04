@@ -1,6 +1,6 @@
 # Blueprints
 
-Industry-standard blueprints for web development.
+Modern blueprints for TypeScript web development.
 
 ## Install
 

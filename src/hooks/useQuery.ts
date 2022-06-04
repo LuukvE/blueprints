@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function useQuery() {
-  const history = useHistory();
+const useQuery = () => {
+  const navigate = useNavigate();
   const location = useLocation();
 
   // Create an object out of the URL query parameters
@@ -36,24 +36,27 @@ function useQuery() {
 
       // By default the browser navigates to the new URL, this option can replace it instead
       if (options && options.replace) {
-        history.replace({
-          pathname: history.location.pathname,
-          search: new URLSearchParams(newQuery).toString()
-        });
+        navigate(
+          {
+            pathname: location.pathname,
+            search: new URLSearchParams(newQuery).toString()
+          },
+          { replace: true }
+        );
       } else {
-        history.push({
-          pathname: history.location.pathname,
+        navigate({
+          pathname: location.pathname,
           search: new URLSearchParams(newQuery).toString()
         });
       }
     },
-    [history, location.search]
+    [navigate, location.search, location.pathname]
   );
 
   return {
     setQuery,
     query
   };
-}
+};
 
 export default useQuery;

@@ -21,9 +21,7 @@ const Welcome: FC = () => {
   useEffect(() => {
     if (tasks.length) return;
 
-    getTasks().then((tasks) => {
-      dispatch(actions.set({ tasks }));
-    });
+    getTasks();
   }, [getTasks, dispatch, tasks]);
 
   return (

@@ -1,33 +1,27 @@
 import 'react-app-polyfill/ie11';
 import '@fortawesome/fontawesome-free/js/all';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
-import { Router, Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom';
 
 import './index.scss';
 import store from './store';
 import Welcome from './components/Welcome';
 
-const history = createBrowserHistory();
-
-ReactDOM.render(
-  <Router history={history}>
-    <Provider store={store}>
-      <nav>
-        <NavLink exact to="/">
-          Welcome
-        </NavLink>
-      </nav>
-      <Switch>
-        <Route exact path="/">
-          <Welcome />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
-    </Provider>
-  </Router>,
-  document.getElementById('root')
+createRoot(document.getElementById('root') as HTMLElement).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <nav>
+          <NavLink to="/">Welcome</NavLink>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
+        </Routes>
+      </Provider>
+    </BrowserRouter>
+  </StrictMode>
 );

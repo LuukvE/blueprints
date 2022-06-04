@@ -1,5 +1,23 @@
 import http, { RequestListener } from 'http';
 
+type Person = {
+  id: string;
+  name: string;
+  status: string;
+  description: string;
+};
+
+const database: {
+  [id: string]: Person;
+} = {
+  '12312312': {
+    id: '12312312',
+    name: 'Luuk',
+    status: '',
+    description: 'Web Developer'
+  }
+};
+
 async function getResult(url: string, body: any): Promise<Object> {
   if (url.indexOf('/tasks') === 0) {
     return [
@@ -8,6 +26,22 @@ async function getResult(url: string, body: any): Promise<Object> {
       { description: 'Display data', done: false },
       { description: 'Delete data', done: false }
     ];
+  }
+
+  if (url.indexOf('/people') === 0) {
+    if (!body) return database;
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 200);
+    });
+
+    if (!body.id) body.id = `${Math.random()}`;
+
+    database[body.id] = body;
+
+    if (body.status === 'deleted') delete database[body.id];
+
+    return database;
   }
 
   return null;

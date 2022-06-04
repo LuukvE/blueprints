@@ -1,17 +1,29 @@
 import { TypedUseSelectorHook, useSelector as useReduxSelector } from 'react-redux';
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { State } from './types';
+import { State, Person } from './types';
 
 const initialState: State = {
-  tasks: []
+  tasks: [],
+  people: {}
 };
 
 export const { actions, reducer } = createSlice({
   name: 'store',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<Partial<State>>) => ({ ...state, ...action.payload })
+    set: (state, action: PayloadAction<Partial<State>>) => ({ ...state, ...action.payload }),
+    setPerson: (state, action: PayloadAction<Partial<Person>>) => {
+      if (!action.payload.id) return;
+
+      state.people = {
+        ...state.people,
+        [action.payload.id]: {
+          ...state.people[action.payload.id],
+          ...action.payload
+        }
+      };
+    }
   }
 });
 

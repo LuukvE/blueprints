@@ -12,6 +12,7 @@
     "@types/react-dom": "16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
+    "firebase": "^9.8.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.3",
@@ -24,7 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "npx ts-node server",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "deploy": "npx firebase deploy"
   },
   "eslintConfig": {
     "extends": [

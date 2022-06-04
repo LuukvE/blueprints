@@ -1,6 +1,6 @@
-# Blueprint
+# Blueprints
 
-The modern industry-standard blueprint for web development.
+The modern industry-standard blueprints for web development.
 
 ## Install
 

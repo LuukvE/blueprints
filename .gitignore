@@ -3,4 +3,5 @@ node_modules
 build
 *.cache
 yarn.lock
+package-lock.json
 *.log

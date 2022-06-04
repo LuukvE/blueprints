@@ -21,3 +21,10 @@ Modern blueprints for TypeScript web development.
 8. `$ npm run deploy`
 9. (optional) Go to Project Settings in Firebase and copy over Analytics code to `index.ts`
 10. (optional) Add Custom domain, prove ownership by adding TXT record, then add A record
+
+## Cloud Run Deploy Steps
+
+1. https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-nodejs-service
+2. Change config values in `package.json` scripts `build-api` and `deploy-api`
+3. `$ npm run build-api`
+4. `$ npm run deploy-api`

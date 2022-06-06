@@ -7,7 +7,6 @@ type Person = {
   status: string;
   description: string;
 };
-
 const database: {
   [id: string]: Person;
 } = {
@@ -27,7 +26,7 @@ const httpHandler: RequestListener = async function httpHandler(request, respons
   });
 
   request.on('end', async () => {
-    let body: Object = null;
+    let body: Object | null = null;
 
     try {
       body = chunks.length ? JSON.parse(chunks) : null;
@@ -65,7 +64,7 @@ http.createServer(httpHandler).listen(8080);
 
 console.log('Server running on http://localhost:8080');
 
-async function getResult(url: string, body: any): Promise<Object> {
+async function getResult(url: string, body: any): Promise<Object | null> {
   // Emulate real network traffic delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -76,7 +75,7 @@ async function getResult(url: string, body: any): Promise<Object> {
       setTimeout(resolve, 200);
     });
 
-    if (!body) return;
+    if (!body) return null;
 
     if (!body.id) body.id = `${Math.random()}`;
 

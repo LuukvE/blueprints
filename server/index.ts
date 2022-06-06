@@ -8,7 +8,7 @@ export type Message = {
 
 const messages: Message[] = [];
 
-async function getResult(url: string, body: any): Promise<Object> {
+async function getResult(url: string, body: any): Promise<Object | null> {
   // Emulate real network traffic delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -29,7 +29,7 @@ const httpHandler: RequestListener = async function httpHandler(request, respons
   });
 
   request.on('end', async () => {
-    let body: Object = null;
+    let body: Object | null = null;
 
     try {
       body = chunks.length ? JSON.parse(chunks) : null;

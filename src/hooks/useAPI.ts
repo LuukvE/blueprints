@@ -1,33 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { Person } from '../types';
 import { useDispatch, actions } from '../store';
 
-const wsURL = `${process.env.REACT_APP_API_URL}`
-  .split('/')
-  .map((part, index) => {
-    if (index !== 0) return part;
-    return part === 'https:' ? 'wss:' : 'ws:';
-  })
-  .join('/');
-
 const useAPI = () => {
   const dispatch = useDispatch();
   const abort = useRef<AbortController | null>(null);
-
-  useEffect(() => {
-    const ws = new WebSocket(wsURL);
-
-    ws.addEventListener('message', (message) => {
-      const person = JSON.parse(message.data);
-
-      dispatch(actions.setPerson(person));
-    });
-
-    return () => {
-      ws.close();
-    };
-  }, [dispatch]);
 
   const getPeople = useCallback(async (): Promise<void> => {
     if (abort.current) abort.current.abort();
@@ -52,7 +30,7 @@ const useAPI = () => {
     }
   }, [dispatch]);
 
-  const updatePerson = useCallback(async (person?: Partial<Person>): Promise<void> => {
+  const updatePerson = useCallback(async (person: Partial<Person>): Promise<void> => {
     if (abort.current) abort.current.abort();
 
     const { signal } = (abort.current = new AbortController());
@@ -71,6 +49,10 @@ const useAPI = () => {
 
         return;
       }
+
+      const result = await response.json();
+
+      dispatch(actions.setPerson(result));
     } catch (e) {
       if (signal.aborted) return;
 

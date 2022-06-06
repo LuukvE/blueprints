@@ -61,9 +61,7 @@ const httpHandler: RequestListener = async function httpHandler(request, respons
   });
 };
 
-const server = http.createServer(httpHandler).listen(8080);
-
-const wss = new WebSocketServer({ server });
+http.createServer(httpHandler).listen(8080);
 
 console.log('Server running on http://localhost:8080');
 
@@ -87,15 +85,11 @@ async function getResult(url: string, body: any): Promise<Object> {
       ...body
     };
 
-    const message = JSON.stringify(database[body.id]);
-
-    wss.clients.forEach((client) => {
-      if (client.readyState === OPEN) client.send(message);
-    });
+    const person = database[body.id];
 
     if (body.status === 'deleted') delete database[body.id];
 
-    return { success: true };
+    return person;
   }
 
   return null;

@@ -1,6 +1,9 @@
 import http, { RequestListener } from 'http';
 
 async function getResult(url: string, body: any): Promise<Object> {
+  // Emulate real network traffic delay
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   if (url.indexOf('/tasks') === 0) {
     return [
       { description: 'Authenticate', done: false },

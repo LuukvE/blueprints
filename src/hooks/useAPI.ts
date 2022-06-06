@@ -1,29 +1,33 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
-import { Task } from '../types';
+import { useDispatch, actions } from '../store';
 
 const useAPI = () => {
-  const getTasks = useCallback(async (): Promise<Task[]> => {
+  const dispatch = useDispatch();
+  const abort = useRef<AbortController | null>(null);
+
+  const getTasks = useCallback(async (): Promise<void> => {
+    if (abort.current) abort.current.abort();
+
+    const { signal } = (abort.current = new AbortController());
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
         method: 'GET',
         mode: 'cors',
-        credentials: 'include'
+        credentials: 'include',
+        signal
       });
 
-      if (response.status !== 200) {
-        console.log(`API request failed`);
+      if (response.status !== 200) return console.log(`API request failed`);
 
-        return [];
-      }
-
-      return await response.json();
+      dispatch(actions.set({ tasks: await response.json() }));
     } catch (e) {
+      if (signal.aborted) return;
+
       console.log(`API request failed`, e);
     }
-
-    return [];
-  }, []);
+  }, [dispatch]);
 
   return {
     getTasks

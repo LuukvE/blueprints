@@ -5,4 +5,4 @@ COPY package*.json ./
 RUN yarn
 COPY . .
 EXPOSE 8080
-CMD [ "npx", "ts-node", "server" ]
+CMD [ "node", "index.js" ]

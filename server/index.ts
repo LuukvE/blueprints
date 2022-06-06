@@ -68,14 +68,8 @@ const wss = new WebSocketServer({ server });
 console.log('Server running on http://localhost:8080');
 
 async function getResult(url: string, body: any): Promise<Object> {
-  if (url.indexOf('/tasks') === 0) {
-    return [
-      { description: 'Authenticate', done: false },
-      { description: 'Load data', done: false },
-      { description: 'Display data', done: false },
-      { description: 'Delete data', done: false }
-    ];
-  }
+  // Emulate real network traffic delay
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   if (url.indexOf('/people') === 0) return database;
 

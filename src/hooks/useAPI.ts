@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
-import { Person, Task } from '../types';
+import { Person } from '../types';
 import { useDispatch, actions } from '../store';
 
 const wsURL = `${process.env.REACT_APP_API_URL}`
@@ -29,33 +29,16 @@ const useAPI = () => {
     };
   }, [dispatch]);
 
-  const getTasks = useCallback(async (): Promise<Task[]> => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/tasks`, {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'include'
-      });
-
-      if (response.status !== 200) {
-        console.log(`API request failed`);
-
-        return [];
-      }
-
-      return await response.json();
-    } catch (e) {
-      console.log(`API request failed`, e);
-    }
-
-    return [];
-  }, []);
-
   const getPeople = useCallback(async (): Promise<void> => {
+    if (abort.current) abort.current.abort();
+
+    const { signal } = (abort.current = new AbortController());
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/people`, {
-        method: 'GET',
+        signal,
         mode: 'cors',
+        method: 'GET',
         credentials: 'include'
       });
 
@@ -63,21 +46,23 @@ const useAPI = () => {
 
       dispatch(actions.set({ people: await response.json() }));
     } catch (e) {
+      if (signal.aborted) return;
+
       console.log(`API request failed`, e);
     }
   }, [dispatch]);
 
   const updatePerson = useCallback(async (person?: Partial<Person>): Promise<void> => {
+    if (abort.current) abort.current.abort();
+
+    const { signal } = (abort.current = new AbortController());
+
     try {
-      if (abort.current) abort.current.abort();
-
-      abort.current = new AbortController();
-
       const response = await fetch(`${process.env.REACT_APP_API_URL}/person`, {
-        method: 'POST',
+        signal,
         mode: 'cors',
+        method: 'POST',
         credentials: 'include',
-        signal: abort.current.signal,
         body: person ? JSON.stringify(person) : null
       });
 
@@ -86,11 +71,14 @@ const useAPI = () => {
 
         return;
       }
-    } catch (e) {}
+    } catch (e) {
+      if (signal.aborted) return;
+
+      console.log(`API request failed`, e);
+    }
   }, []);
 
   return {
-    getTasks,
     getPeople,
     updatePerson
   };

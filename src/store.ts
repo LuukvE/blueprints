@@ -4,7 +4,6 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State, Person } from './types';
 
 const initialState: State = {
-  tasks: [],
   people: {}
 };
 

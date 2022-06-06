@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import useAPI from '../hooks/useAPI';
 import { useDispatch, actions, useSelector } from '../store';
@@ -7,12 +7,8 @@ import './Crud.scss';
 
 const Crud: FC = () => {
   const dispatch = useDispatch();
-  const { updatePerson, getPeople } = useAPI();
+  const { updatePerson } = useAPI();
   const people = useSelector((state) => state.people);
-
-  useEffect(() => {
-    getPeople();
-  }, [getPeople]);
 
   return (
     <main className="Crud">

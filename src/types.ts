@@ -1,8 +1,3 @@
-export type Task = {
-  description: string;
-  done: boolean;
-};
-
 export type Person = {
   id: string;
   name: string;
@@ -12,6 +7,5 @@ export type Person = {
 };
 
 export type State = {
-  tasks: Task[];
   people: { [id: string]: Person };
 };

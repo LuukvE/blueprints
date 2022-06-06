@@ -9,14 +9,8 @@ export type Message = {
 const messages: Message[] = [];
 
 async function getResult(url: string, body: any): Promise<Object> {
-  if (url.indexOf('/tasks') === 0) {
-    return [
-      { description: 'Authenticate', done: false },
-      { description: 'Load data', done: false },
-      { description: 'Display data', done: false },
-      { description: 'Delete data', done: false }
-    ];
-  }
+  // Emulate real network traffic delay
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   if (url.indexOf('/chat') === 0) {
     if (body) messages.push(body);

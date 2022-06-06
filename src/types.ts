@@ -1,8 +1,3 @@
-export type Task = {
-  description: string;
-  done: boolean;
-};
-
 export type Message = {
   body: string;
   created: string;
@@ -10,7 +5,6 @@ export type Message = {
 };
 
 export type State = {
-  tasks: Task[];
   chat: Message[];
   user: string;
   buffer: string;

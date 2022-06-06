@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import useAPI from '../hooks/useAPI';
 import { useSelector, useDispatch, actions } from '../store';
@@ -25,10 +25,6 @@ const Chat: FC = () => {
 
     window.scroll(0, window.document.body.clientHeight);
   }, [buffer, user, dispatch, setMessage]);
-
-  useEffect(() => {
-    setMessage();
-  }, [setMessage]);
 
   return (
     <main className="Chat">

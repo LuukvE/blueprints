@@ -4,7 +4,6 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State } from './types';
 
 const initialState: State = {
-  tasks: [],
   chat: [],
   user: `user-${Math.random()}`,
   buffer: ''

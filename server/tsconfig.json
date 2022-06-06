@@ -1,13 +1,15 @@
 {
+  "lib": ["es6"],
   "compilerOptions": {
+    "strict": true,
+    "types": ["node"],
+    "lib": ["es2020"],
+    "target": "es2020",
+    "skipLibCheck": true,
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "forceConsistentCasingInFileNames": true
   },
-  "lib": ["es6"]
+  "exclude": ["dist", "node_modules"]
 }

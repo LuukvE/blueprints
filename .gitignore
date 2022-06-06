@@ -5,3 +5,5 @@ build
 yarn.lock
 package-lock.json
 *.log
+server/index.js
+server/dist

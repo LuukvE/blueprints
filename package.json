@@ -1,67 +1,7 @@
 {
-  "name": "blueprints",
-  "author": {
-    "name": "Luuk van Egeraat"
-  },
-  "license": "MIT",
-  "version": "0.0.1",
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
-    "@reduxjs/toolkit": "^1.8.2",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-redux": "^8.0.2",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
-    "firebase": "^9.8.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "server": "npx ts-node server",
-    "build": "react-scripts build",
-    "deploy": "npx firebase deploy",
-    "build-api": "gcloud builds submit --tag gcr.io/<project-id>/<make-up-a-name-for-this-image>",
-    "deploy-api": "gcloud run deploy <make-up-a-name-for-this-image> --image gcr.io/<project-id>/<make-up-a-name-for-this-image> --platform managed --region europe-west4 --allow-unauthenticated"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "prettier/prettier": "warn",
-      "sort-imports": "off"
-    },
-    "plugins": []
-  },
-  "prettier": {
-    "singleQuote": true,
-    "printWidth": 100,
-    "trailingComma": "none",
-    "endOfLine": "auto"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/node": "^17.0.39",
-    "@types/react": "^18.0.11",
-    "@types/react-dom": "^18.0.5",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5",
-    "sass": "^1.47.0",
-    "source-map-explorer": "^2.4.2",
-    "ts-node": "^10.4.0",
-    "typescript": "~3.9.5"
-  }
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
 }

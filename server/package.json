@@ -6,10 +6,7 @@
   "private": true,
   "license": "MIT",
   "version": "0.0.1",
-  "dependencies": {
-    "@types/ws": "^8.5.3",
-    "ws": "^8.7.0"
-  },
+  "dependencies": {},
   "scripts": {
     "start": "tsc && node ."
   },

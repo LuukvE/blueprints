@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "author": {
+    "name": "Luuk van Egeraat"
+  },
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.1",
+  "dependencies": {},
+  "scripts": {
+    "start": "tsc && node ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "prettier/prettier": "warn",
+      "sort-imports": "off"
+    },
+    "plugins": []
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "none",
+    "endOfLine": "auto"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.39",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "ts-node": "^10.4.0",
+    "typescript": "~3.9.5"
+  }
+}

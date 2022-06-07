@@ -1,8 +1,14 @@
-import React, { FC } from 'react';
+import AOS from 'aos';
+import React, { FC, useLayoutEffect } from 'react';
 
 import './Scroll.scss';
 
 const Scroll: FC = () => {
+  useLayoutEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   return (
     <main className="Scroll">
       <img src="/logo.png" alt="" data-aos="fade-up" />

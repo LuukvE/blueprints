@@ -95,6 +95,7 @@ const httpHandler: RequestListener = async function httpHandler(request, respons
       const { headers, method, url } = request;
 
       // https://api.slack.com/events/url_verification
+      // Use reverse proxy ngrok.com to work from localhost and still receive webhooks
       if (url?.indexOf('/slack') === 0 && body?.type === 'url_verification') {
         response.writeHead(200, { 'Content-type': 'text/plain' });
 

@@ -1,9 +1,11 @@
+import moment from 'moment';
+import React, { FC } from 'react';
+
 // Components can be found at react-bootstrap.netlify.app
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import React, { FC } from 'react';
 
 import useAPI from '../hooks/useAPI';
 import { useSelector, actions, useDispatch } from '../store';
@@ -89,8 +91,9 @@ const Contact: FC = () => {
       <br />
       <br />
       <h1>Messages</h1>
-      {messages.map(({ id, name, email, body }) => (
+      {messages.map(({ id, name, email, body, created }) => (
         <div className="message" key={id}>
+          {created && <small>{moment(created).fromNow()}</small>}
           <strong>{name}</strong>
           <i>{email}</i>
           <p>{body}</p>

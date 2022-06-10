@@ -9,5 +9,6 @@ export type State = {
     body: string;
     name: string;
     email: string;
+    created: string;
   }[];
 };

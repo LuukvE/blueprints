@@ -11,6 +11,12 @@ const App: FC = () => {
 
   useEffect(() => {
     getMessages();
+
+    const interval = setInterval(getMessages, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [getMessages]);
 
   return (

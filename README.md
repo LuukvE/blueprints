@@ -19,6 +19,7 @@ Modern blueprints for TypeScript web development.
 - [Websocket](https://github.com/LuukvE/blueprints/tree/websocket) - Real-time version of CRUD
 - [Hosting](https://github.com/LuukvE/blueprints/tree/hosting) - Google Firebase and Cloud Run config
 - [Bootstrap](https://github.com/LuukvE/blueprints/tree/bootstrap) - Bootstrap-based contact form
+- [Database](https://github.com/LuukvE/blueprints/tree/database) - Read and write to Google Firestore database
 
 ## About
 

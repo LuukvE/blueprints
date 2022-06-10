@@ -1,10 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
+
+import useAPI from '../hooks/useAPI';
 
 import './App.scss';
 import Contact from './Contact';
 
 const App: FC = () => {
+  const { getMessages } = useAPI();
+
+  useEffect(() => {
+    getMessages();
+  }, [getMessages]);
+
   return (
     <>
       <nav>

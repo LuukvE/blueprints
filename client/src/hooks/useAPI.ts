@@ -5,25 +5,45 @@ import { useSelector, useDispatch, actions } from '../store';
 const useAPI = () => {
   const dispatch = useDispatch();
   const abort = useRef<AbortController | null>(null);
-  const { name, email, message } = useSelector((state) => state);
+  const { name, email, body } = useSelector((state) => state);
 
-  const contact = useCallback(async (): Promise<void> => {
-    dispatch(actions.set({ status: 'sending', error: '' }));
-
+  const getMessages = useCallback(async (): Promise<void> => {
     if (abort.current) abort.current.abort();
 
     const { signal } = (abort.current = new AbortController());
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/contact`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/get-messages`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        signal
+      });
+
+      if (response.status !== 200) return console.log(`API request failed`);
+
+      dispatch(actions.set({ messages: await response.json() }));
+    } catch (e) {
+      if (signal.aborted) return;
+
+      console.log(`API request failed`, e);
+
+      dispatch(actions.set({ status: 'ready', error: 'API request failed' }));
+    }
+  }, [dispatch]);
+
+  const saveMessage = useCallback(async (): Promise<void> => {
+    dispatch(actions.set({ status: 'sending', error: '' }));
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/save-message`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
-        signal,
         body: JSON.stringify({
           name,
           email,
-          message
+          body
         })
       });
 
@@ -33,18 +53,19 @@ const useAPI = () => {
         return console.log(`API request failed`);
       }
 
-      dispatch(actions.set({ status: 'sent', error: '', email: '', name: '', message: '' }));
-    } catch (e) {
-      if (signal.aborted) return;
+      await getMessages();
 
+      dispatch(actions.set({ status: 'sent', error: '', email: '', name: '', body: '' }));
+    } catch (e) {
       console.log(`API request failed`, e);
 
       dispatch(actions.set({ status: 'ready', error: 'API request failed' }));
     }
-  }, [dispatch, email, message, name]);
+  }, [dispatch, getMessages, email, body, name]);
 
   return {
-    contact
+    getMessages,
+    saveMessage
   };
 };
 

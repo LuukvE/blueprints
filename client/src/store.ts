@@ -8,7 +8,8 @@ const initialState: State = {
   error: '',
   name: '',
   email: '',
-  message: ''
+  body: '',
+  messages: []
 };
 
 export const { actions, reducer } = createSlice({

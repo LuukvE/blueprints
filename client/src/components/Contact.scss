@@ -1,13 +1,13 @@
 @import '../variables';
 
 .Contact {
-  padding: 3rem;
+  padding: 2rem 3rem;
   line-height: 1.5;
   width: 100%;
 
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   form {
@@ -19,6 +19,28 @@
     button,
     textarea {
       margin-bottom: 0.5rem;
+    }
+  }
+
+  .message {
+    border-bottom: 1px solid rgba($dark, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 5px;
+    background: rgba($primary, 0.03);
+    margin-bottom: 0.5rem;
+
+    p {
+      padding: 0.5rem;
+      border-radius: 5px;
+      background: rgba($primary, 0.05);
+      margin-top: 0.3rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
     }
   }
 }

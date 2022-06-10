@@ -1,13 +1,42 @@
+import { nanoid } from 'nanoid';
 import http, { RequestListener } from 'http';
+import { ServiceAccount, initializeApp, firestore, credential } from 'firebase-admin';
+
+import service from './google-service-account.json';
+
+const db = initializeApp({
+  credential:
+    process.env.NODE_ENV === 'production'
+      ? credential.applicationDefault()
+      : credential.cert(service as ServiceAccount)
+}).firestore();
 
 async function getResult(url: string, body: any): Promise<Object | null> {
   // Emulate real network traffic delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  if (url.indexOf('/contact') === 0) {
-    console.log(body);
+  if (url.indexOf('/save-message') === 0) {
+    const id = nanoid();
+
+    await db.doc(`/messages/${id}`).set({
+      id,
+      name: `${body?.name || ''}`,
+      email: `${body?.email || ''}`,
+      body: `${body?.body || ''}`
+    });
 
     return { success: true };
+  }
+
+  if (url.indexOf('/get-messages') === 0) {
+    const snapshot = await db.collection('messages').get();
+    const result: firestore.DocumentData[] = [];
+
+    snapshot.forEach((doc) => {
+      result.push(doc.data());
+    });
+
+    return result;
   }
 
   return null;

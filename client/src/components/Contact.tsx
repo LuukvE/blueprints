@@ -11,9 +11,9 @@ import { useSelector, actions, useDispatch } from '../store';
 import './Contact.scss';
 
 const Contact: FC = () => {
-  const { contact } = useAPI();
   const dispatch = useDispatch();
-  const { name, email, message, status, error } = useSelector((state) => state);
+  const { saveMessage } = useAPI();
+  const { name, email, body, status, error, messages } = useSelector((state) => state);
 
   return (
     <main className="Contact">
@@ -23,7 +23,7 @@ const Contact: FC = () => {
         onSubmit={(e) => {
           e.preventDefault();
 
-          contact();
+          saveMessage();
         }}
       >
         <label htmlFor="name">Name</label>
@@ -55,17 +55,17 @@ const Contact: FC = () => {
           }}
           disabled={status !== 'ready'}
         />
-        <label htmlFor="message">Message</label>
+        <label htmlFor="body">Message</label>
         <Form.Control
           required
           rows={3}
-          id="message"
+          id="body"
           as="textarea"
-          value={message}
+          value={body}
           onChange={(e) => {
             dispatch(
               actions.set({
-                message: e.target.value
+                body: e.target.value
               })
             );
           }}
@@ -86,6 +86,16 @@ const Contact: FC = () => {
           <Alert variant="success">Thank you! Your message has been received</Alert>
         )}
       </Form>
+      <br />
+      <br />
+      <h1>Messages</h1>
+      {messages.map(({ id, name, email, body }) => (
+        <div className="message" key={id}>
+          <strong>{name}</strong>
+          <i>{email}</i>
+          <p>{body}</p>
+        </div>
+      ))}
     </main>
   );
 };

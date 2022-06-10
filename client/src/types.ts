@@ -3,5 +3,11 @@ export type State = {
   error: string;
   name: string;
   email: string;
-  message: string;
+  body: string;
+  messages: {
+    id: string;
+    body: string;
+    name: string;
+    email: string;
+  }[];
 };

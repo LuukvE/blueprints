@@ -1,4 +1,9 @@
 {
+  "name": "blueprints",
+  "author": {
+    "name": "Luuk van Egeraat"
+  },
+  "license": "MIT",
   "private": true,
   "workspaces": [
     "client",

@@ -20,6 +20,7 @@ Modern blueprints for TypeScript web development.
 - [Hosting](https://github.com/LuukvE/blueprints/tree/hosting) - Google Firebase and Cloud Run config
 - [Bootstrap](https://github.com/LuukvE/blueprints/tree/bootstrap) - Bootstrap-based contact form
 - [Database](https://github.com/LuukvE/blueprints/tree/database) - Read and write to Google Firestore database
+- [Slack](https://github.com/LuukvE/blueprints/tree/slack) - Write and receive messages from Slack channels
 
 ## About
 

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC } from 'react';
 
 import useAPI from '../hooks/useAPI';
 import { useSelector, actions, useDispatch } from '../store';
@@ -38,6 +38,7 @@ const Contact: FC = () => {
               })
             );
           }}
+          disabled={status !== 'ready'}
         />
         <label htmlFor="email">Email</label>
         <Form.Control
@@ -52,6 +53,7 @@ const Contact: FC = () => {
               })
             );
           }}
+          disabled={status !== 'ready'}
         />
         <label htmlFor="message">Message</label>
         <Form.Control
@@ -67,6 +69,7 @@ const Contact: FC = () => {
               })
             );
           }}
+          disabled={status !== 'ready'}
         />
         <Button
           variant={status === 'sent' ? 'success' : 'primary'}

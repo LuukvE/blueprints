@@ -1,25 +1,17 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 
-import useAPI from '../hooks/useAPI';
-
 import './App.scss';
-import Welcome from './Welcome';
+import Contact from './Contact';
 
 const App: FC = () => {
-  const { getTasks } = useAPI();
-
-  useEffect(() => {
-    getTasks();
-  }, [getTasks]);
-
   return (
     <>
       <nav>
-        <NavLink to="/">Welcome</NavLink>
+        <NavLink to="/">Contact</NavLink>
       </nav>
       <Routes>
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<Contact />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

@@ -1,7 +1,21 @@
+// For a list of all possible Bootstrap variables
+// https://raw.githubusercontent.com/twbs/bootstrap/main/scss/_variables.scss
+
 $purple: #5346b3;
 $dark: #272727;
+$light: white;
 $red: #e24c4b;
 $orange: #fd8708;
+$yellow: #a67c39;
 $grey: #868686;
-$blue: #61bcea;
+$blue: #2b496c;
 $green: #6ac268;
+$primary: $blue;
+
+$btn-focus-box-shadow: none;
+$spinner-width: 1rem !default;
+$input-btn-focus-box-shadow: none;
+
+.btn {
+  box-shadow: none !important;
+}

@@ -1,8 +1,7 @@
-export type Task = {
-  description: string;
-  done: boolean;
-};
-
 export type State = {
-  tasks: Task[];
+  status: 'ready' | 'sending' | 'sent';
+  error: string;
+  name: string;
+  email: string;
+  message: string;
 };

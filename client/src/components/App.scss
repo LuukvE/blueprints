@@ -1,4 +1,5 @@
 @import '../variables';
+@import '~bootstrap/scss/bootstrap';
 
 .App {
   display: flex;
@@ -7,8 +8,8 @@
   height: 100%;
   width: 100%;
   min-height: 100vh;
-  background: $dark;
-  color: white;
+  background: $light;
+  color: $dark;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
 
@@ -16,16 +17,15 @@
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    background: rgba(black, 0.2);
+    border-bottom: 1px solid rgba($dark, 0.2);
 
     a {
       display: flex;
-      color: #ddd;
       text-decoration: none;
       padding: 3rem;
       &:hover,
       &.active {
-        color: white;
+        color: black;
       }
     }
   }

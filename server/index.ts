@@ -4,13 +4,10 @@ async function getResult(url: string, body: any): Promise<Object | null> {
   // Emulate real network traffic delay
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  if (url.indexOf('/tasks') === 0) {
-    return [
-      { description: 'Authenticate', done: false },
-      { description: 'Load data', done: false },
-      { description: 'Display data', done: false },
-      { description: 'Delete data', done: false }
-    ];
+  if (url.indexOf('/contact') === 0) {
+    console.log(body);
+
+    return { success: true };
   }
 
   return null;

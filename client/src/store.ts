@@ -4,7 +4,11 @@ import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State } from './types';
 
 const initialState: State = {
-  tasks: []
+  status: 'ready',
+  error: '',
+  name: '',
+  email: '',
+  message: ''
 };
 
 export const { actions, reducer } = createSlice({

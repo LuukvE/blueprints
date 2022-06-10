@@ -1,0 +1,24 @@
+@import '../variables';
+
+.Contact {
+  padding: 3rem;
+  line-height: 1.5;
+  width: 100%;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+
+    input,
+    button,
+    textarea {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

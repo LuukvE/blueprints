@@ -2,6 +2,8 @@ import { nanoid } from 'nanoid';
 import http, { RequestListener } from 'http';
 import { ServiceAccount, initializeApp, firestore, credential } from 'firebase-admin';
 
+// You can download this from Google Cloud after creating your Firestore
+// IAM and admin > Service Accounts > firebase-adminsdk > Keys > Add Key
 import service from './google-service-account.json';
 
 const db = initializeApp({
